@@ -1,17 +1,15 @@
 const Discord = require("discord.js");
 const bot = new Discord.Client();
 
-const token = "NzE0OTg0MjI4ODU2NTI4OTQ3.Xs2oTQ.7Opoi9ilpNZCf3ddCiEf9Q9nAXw";
+const token = "";
 
 const PREFIX = "~";
 
-const website = "You can visit our website at: http://ichor.buycraft.net/";
-const ip = "You can join the server at: mc.ichor.me";
+const website = "website.com"
+
 const ytdl = require("ytdl-core");
 
 var version = "1.2.4";
-
-let statuses = ["Version 1.2.4"];
 
 let joinedChannel = null;
 
@@ -62,15 +60,11 @@ bot.on("message", (msg) => {
         return msg.channel.send("Invalid command! Try ~version info");
       }
       break;
-    case "webstore": //Tells the ichor minecraft webstore
+    case "webstore": //If you have a website you want to advertise.
       msg.reply(website);
       break;
 
-    case "website": //Tells the ichor minecraft webstore
-      msg.reply(website);
-      break;
-
-    case "stop":
+    case "stop": //Stops the bot and makes it leave the voice channel
       if (!msg.member.voice.channel) {
         return msg.channel.send("You must be in a channel to stop the bot");
       } else {
@@ -81,7 +75,7 @@ bot.on("message", (msg) => {
 
       break;
 
-    case "summon":
+    case "summon": //summons the bot to join the channel
       if (!msg.member.voice.channel) {
         return msg.channel.send("You need to be in a channel");
       } else {
@@ -89,14 +83,10 @@ bot.on("message", (msg) => {
       }
       break;
 
-    case "play":
+    case "play": // plays music
       if (!msg.member.voice.channel) {
         return msg.channel.send("You must be in a channel to play music");
 
-        /*if (isPlaying) {
-        queue.push(args[1]);
-        console.log(queue);
-        return; */
       } else {
         if (!args[1]) {
           return msg.channel.send("You need to put a link!");
@@ -110,14 +100,6 @@ bot.on("message", (msg) => {
             let dispatcher = connection.play(
               ytdl(args[1], { filter: "audioonly" })
             );
-
-            /* dispatcher.on("finish", () => {
-              console.log("Happy");
-              if (queue[0]) {
-                dispatcher = connection.play(ytdl(queue[0], { filter: "audioonly" }));
-              }
-              queue.shift();
-            }); */
 
             isPlaying = true;
             let player = msg.member.user.tag;
@@ -133,28 +115,20 @@ bot.on("message", (msg) => {
       }
       break;
 
-    case "store": //Tells the ichor minecraft webstore
+    case "store": //Same as website
       msg.reply(website);
       break;
 
-    case "server": //Tells the ichor minecraft IP
-      msg.reply(ip);
-      break;
-
-    case "ip": //Tells the ichor minecraft IP
-      msg.reply(ip);
-      break;
-
-    case "clear": //
+    case "clear": //Clears messages in the disord channel only if the person has the role to do so
       if (!msg.member.roles.cache.find((r) => r.name === "rapidholder")) {
         return msg.channel.send("You do not have permission!");
       } else if (!args[1]) {
         return msg.channel.send("Error: please give a number 1-10");
-      } else if (args[1] <= 10) {
+      } else if (args[1] <= 10) { //change the amount of messages you want to clear
         msg.channel.bulkDelete(args[1]);
         let allChannels = msg.channel.name;
         let rapidChannel = bot.channels.cache.find(
-          (channel) => channel.name.toLowerCase() === "rapidlogs"
+          (channel) => channel.name.toLowerCase() === "rapidlogs" //Finds channel to display logs into *this will not work on your server*
         );
         let player = msg.member.user.tag;
         const Embed = new Discord.MessageEmbed()
@@ -178,7 +152,7 @@ bot.on("message", (msg) => {
         .addField("Yo Mama Gay");
       return msg.channel.send(Embed);
 
-    case "status":
+    case "status": //change what the bot is playing
       if (!args[1]) {
         return msg.channel.send("Error: please give a status");
       } else if (args[1]) {
@@ -202,7 +176,7 @@ bot.on("message", (msg) => {
       }
       break;
 
-    case "roll":
+    case "roll": //roll a dice
       let value = args[1];
       if (!args[1]) {
         msg.channel.send("You need to put an input.");
@@ -219,7 +193,7 @@ bot.on("message", (msg) => {
       }
       break;
 
-    case "coinflip":
+    case "coinflip": //flip a coin
       let numberValue = Math.floor(Math.random() * 2) + 1;
       if (numberValue === 1) {
         msg.channel.send("Heads");
