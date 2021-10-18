@@ -145,13 +145,6 @@ bot.on("message", (msg) => {
       }
       break;
 
-    case "embed":
-      const Embed = new Discord.MessageEmbed()
-        .addField("Username", msg.author.username)
-        .addField("N", msg.author.displayAvatarURL())
-        .addField("Yo Mama Gay");
-      return msg.channel.send(Embed);
-
     case "status": //change what the bot is playing
       if (!args[1]) {
         return msg.channel.send("Error: please give a status");
